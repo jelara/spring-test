@@ -1,12 +1,9 @@
 package com.thincrs.springtest;
 
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
 
 public class Persona {
-	private int id;
+	private Integer id;
 	private String nombre;
 	private String apellidos;
 	private Date fechaNacimiento;
@@ -14,7 +11,7 @@ public class Persona {
 	private String entidadNacimiento;
 	private String curp;
 
-	public Persona(int id, String nombre, String apellidos, Date fechaNacimiento, String genero,
+	public Persona(Integer id, String nombre, String apellidos, Date fechaNacimiento, String genero,
 			String entidadNacimiento, String curp) {
 		super();
 		this.id = id;
@@ -46,7 +43,7 @@ public class Persona {
 		return genero;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -74,25 +71,11 @@ public class Persona {
 		this.genero = genero;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-	
-	public int getEdad() {
-		return (int) ChronoUnit.YEARS.between(LocalDate.now(), this.fechaNacimiento.toInstant()
-			      .atZone(ZoneId.systemDefault())
-			      .toLocalDate()); 
-	}
-	
-	public String descripcion() {
-		String descripcion;
-		
-		descripcion = getEdad() < 30 ? "Persona joven" : "Persona vieja";
-		
-		return descripcion;
 	}
 }

@@ -9,6 +9,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class PersonaDAO implements PersonaDAOInterface {
 	static final String DB_URL = "jdbc:mysql://localhost/mascotas";
 	static final String USER = "root";
