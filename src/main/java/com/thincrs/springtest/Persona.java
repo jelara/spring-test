@@ -2,7 +2,15 @@ package com.thincrs.springtest;
 
 import java.sql.Date;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Persona {
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 	private String nombre;
 	private String apellidos;
@@ -10,6 +18,10 @@ public class Persona {
 	private String genero;
 	private String entidadNacimiento;
 	private String curp;
+	
+	public Persona() {
+		
+	}
 
 	public Persona(Integer id, String nombre, String apellidos, Date fechaNacimiento, String genero,
 			String entidadNacimiento, String curp) {

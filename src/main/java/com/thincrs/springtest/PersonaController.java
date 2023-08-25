@@ -1,9 +1,8 @@
 package com.thincrs.springtest;
 
-import java.util.Date;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,38 +21,46 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1")
 public class PersonaController {
 
-	private PersonaDAOInterface personaDAO;
+	private PersonaRepository personaRepository;
 
-	public PersonaController(PersonaDAOInterface personaDAO) {
-		this.personaDAO = personaDAO;
+	public PersonaController(PersonaRepository personaRepository) {
+		this.personaRepository = personaRepository;
 	}
 
 	@GetMapping(path = "/personas", produces = "application/json")
-	public List<Persona> listAll() {
-		return personaDAO.cargarTodas();
+	public List<Persona> listAll(@RequestParam(required = false) String curp) {
+		System.out.println("Curp: " + curp);
+		if (curp == null) {
+			List<Persona> resultado = new ArrayList<>();
+			personaRepository.findAll().forEach(resultado::add);
+			return resultado;
+		} else {
+			return personaRepository.findByCurp(curp);
+		}
 	}
 
 	@GetMapping(path = "/personas/{id}")
-	public String findById(@PathVariable(name = "id", required = true) int id) {
-		return "Your ID is: " + id;
+	public Optional<Persona> findById(@PathVariable(name = "id", required = true) int id) {
+		return personaRepository.findById(id);
 	}
 
 	@PostMapping(path = "/personas")
 	public String crear(@RequestBody Persona miPersona) {
-		
-		personaDAO.insertarPersona(miPersona);
+		personaRepository.save(miPersona);
 
 		return "{\"status\": \"success\"}";
 	}
 
 	@PutMapping(path = "/personas/{id}")
 	public String update() {
-		return "";
+		personaRepository.save(null);
+		return "{\"status\": \"success\"}";
 	}
 
 	@DeleteMapping(path = "/personas/{id}")
 	public String delete(@PathVariable(name = "id", required = true) int id) {
-		return "";
+		personaRepository.deleteById(id);
+		return "{\"status\": \"success\"}";
 	}
 
 	@ExceptionHandler(Exception.class)
