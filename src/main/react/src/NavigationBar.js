@@ -9,6 +9,7 @@ export default function NavigationBar() {
 				<Link to="/">Listado de personas</Link>
 				<Link to="/buscarPersona">Buscar persona</Link>
 				<Link to="/nuevaPersona">Crear nueva persona</Link>
+				<a href="/login">Iniciar sesión</a>
 			</div>
 		</>
 	);

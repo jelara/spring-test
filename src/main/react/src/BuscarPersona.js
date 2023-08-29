@@ -40,14 +40,14 @@ function BuscarPersona() {
 
 	return (
 		<>
-			{formStatus != 'ready' ? <Alert color="info">Enviando...</Alert> : ''}
+			{formStatus !== 'ready' ? <Alert color="info">Enviando...</Alert> : ''}
 			{message ? <Alert color="danger">{message}</Alert> : ''}
 			<Form action='/api/v1/personas' method='get' onSubmit={insertarPersona}>
 				<FormGroup>
 					<Label for="curp">CURP:</Label>
 					<Input id="curp" name="curp" />
 				</FormGroup>
-				<Button disabled={formStatus != "ready"}>
+				<Button disabled={formStatus !== "ready"}>
 					Buscar
 				</Button>
 				{

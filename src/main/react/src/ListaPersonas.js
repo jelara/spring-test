@@ -6,9 +6,10 @@ function ListaPersonas() {
 	const [personas, setPersonas] = useState([]);
 
 	useEffect(function() {
-		fetch("/api/v1/personas")
+		fetch("/api/v1/personas", { redirect: "error" })
 			.then(response => response.json())
-			.then(response => setPersonas(response));
+			.then(response => setPersonas(response))
+			.catch(() => setPersonas([{id: '', nombre: 'Debe iniciar sesión para ver las personas.'}]));
 	}, []);
 
 	return (
