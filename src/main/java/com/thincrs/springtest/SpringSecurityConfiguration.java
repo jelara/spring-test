@@ -15,11 +15,11 @@ public class SpringSecurityConfiguration {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((authz) -> authz
-				// Peticiones al home ("/"), archivos (index.html) y el contenido
-				// del directorio static, no necesitan autenticación
-				.requestMatchers("/", "*.*", "/static/**").permitAll()
-				// Todo lo demás, necesita estar autenticado
-				.anyRequest().authenticated())
+				// Peticiones al API (URLs que comiencen con "/api"),
+				// necesitan autenticación.
+				.requestMatchers("/api/**").authenticated()
+				// Todo lo demás, se puede entrar sin autenticación.
+				.anyRequest().permitAll())
 		    // Para la autenticación, se utiliza un formulario
 		    .formLogin(form -> form.defaultSuccessUrl("/", true).permitAll());
 		return http.build();
